@@ -1,66 +1,57 @@
 package com.example.demo.web.api;
 
-import com.example.demo.domain.entity.Product;
-import com.example.demo.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.ProductService;
+import com.example.demo.service.dto.CreateProductDTO;
+import com.example.demo.service.dto.ProductDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/product")
 public class ProductContaroller {
 
-    private ProductRepository productRepository;
 
-    public ProductContaroller(@Autowired ProductRepository productRepository) {
+    private ProductService productService;
 
-        this.productRepository = productRepository;
+    public ProductContaroller(ProductService productService) {
+        this.productService = productService;
     }
 
 
     @GetMapping()
-    public ResponseEntity<Iterable<Product>> getProducts() {
-        Iterable<Product> all = productRepository.findAll();
-        return ResponseEntity.ok(all);
+    public ResponseEntity<List<ProductDTO>> getProducts(Pageable pageable) {
+        Page<ProductDTO> page = productService.findAll(pageable);
+        return ResponseEntity.ok(page.getContent());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") Integer id) {
-        Optional<Product> productOptional = productRepository.findById(id);
-
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable("id") Integer id) {
+        Optional<ProductDTO> productOptional = productService.findOneById(id);
         return ResponseEntity.of(productOptional);
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
-        if (product.getId() != null) {
-            return ResponseEntity.badRequest().build();
-        }
-        product = productRepository.save(product);
-
-        return ResponseEntity.ok(product);
+    public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody CreateProductDTO dto) {
+        ProductDTO productDTO = productService.create(dto);
+        return ResponseEntity.ok(productDTO);
     }
 
     @PutMapping
-    public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) {
-
-        if (product.getId() == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        product = productRepository.save(product);
-
-        return ResponseEntity.ok(product);
+    public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO dto) {
+        ProductDTO productDTO = productService.update(dto);
+        return ResponseEntity.ok(productDTO);
     }
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteProduct(@PathVariable("id") Integer id) {
-
-        productRepository.deleteById(id);
-
+        productService.delete(id);
         return ResponseEntity.ok().build();
     }
 

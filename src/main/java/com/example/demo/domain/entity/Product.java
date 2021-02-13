@@ -3,6 +3,8 @@ package com.example.demo.domain.entity;
 
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,11 +12,19 @@ public class Product {
 
 
     @Id
+    private Integer id;
+    @NotNull
+    @Size(min = 1, max = 32)
     private String code;
+    @NotNull
     private String name;
+    @NotNull
     private BigDecimal price;
+    @NotNull
     private String article;
+    @NotNull
     private Date produced;
+    @NotNull
     private Integer count;
 
     public String getCode() {
@@ -63,5 +73,13 @@ public class Product {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

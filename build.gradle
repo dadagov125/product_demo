@@ -17,8 +17,11 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'javax.validation:validation-api'
+    implementation "org.hibernate.validator:hibernate-validator"
+    runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'junit:junit:4.12'
 }
 
 test {

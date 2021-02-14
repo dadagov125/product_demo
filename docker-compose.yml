@@ -1,0 +1,9 @@
+version: '2'
+services:
+  backend:
+    build: .
+    environment:
+      - _JAVA_OPTIONS=-Xmx1024m -Xms256m
+      - SERVER_PORT=8080
+    ports:
+      - 8080:8080

@@ -33,6 +33,9 @@ test {
 
 node {
     nodeProjectDir = file("${project.projectDir}/frontend")
+    version = '14.15.0'
+    npmVersion = '6.14.8'
+    download = true
 }
 
 task buildFrontend(type: NpmTask) {
@@ -40,4 +43,10 @@ task buildFrontend(type: NpmTask) {
     args = ['run', 'build:prod']
 }
 
+npmSetup.dependsOn nodeSetup
+npmInstall.dependsOn npmSetup
 bootJar.dependsOn buildFrontend
+
+bootJar {
+    archiveName = 'app.jar'
+}

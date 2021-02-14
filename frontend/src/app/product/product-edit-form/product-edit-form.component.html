@@ -1,0 +1,31 @@
+<form #myForm="ngForm" class="form">
+
+  <mat-form-field>
+    <mat-label for="code">Code</mat-label>
+    <input [(ngModel)]="product.code" id="code" matInput maxlength="32" name="code" required type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label for="name">name</mat-label>
+    <input [(ngModel)]="product.name" id="name" matInput name="name" required type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label for="price">price</mat-label>
+    <input [(ngModel)]="product.price" id="price" matInput name="price" required type="number">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label for="article">article</mat-label>
+    <input [(ngModel)]="product.article" id="article" matInput name="article" required type="text">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label for="count">count</mat-label>
+    <input [(ngModel)]="product.count" id="count" matInput name="count" required type="number">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>produced date</mat-label>
+    <input [(ngModel)]="product.produced" [matDatepicker]="picker" matInput name="produced" required>
+    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</form>

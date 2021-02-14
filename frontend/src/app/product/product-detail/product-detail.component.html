@@ -1,0 +1,27 @@
+<div *ngIf="(product|async) as p">
+
+  <div>
+    code: {{p.code}}
+  </div>
+
+  <div>
+    name: {{p.name}}
+  </div>
+
+  <div>
+    count: {{p.count}}
+  </div>
+  <div>
+    article: {{p.article}}
+  </div>
+  <div>
+    price: {{p.price|currency:'RUB':'symbol-narrow'}}
+  </div>
+
+  <div>
+    produced: {{p.produced | date:'dd MMM yyyy' }}
+  </div>
+
+</div>
+
+

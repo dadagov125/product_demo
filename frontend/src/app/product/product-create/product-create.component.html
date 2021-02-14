@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>Create Product</h1>
+
+<app-product-edit-form (validationStatusChanged)="onVelidation($event)" [product]="product"></app-product-edit-form>
+<div mat-dialog-actions>
+  <button [mat-dialog-close]="null" color="warn" mat-button>Cancel</button>
+  <button [disabled]="!isFormValid" [mat-dialog-close]="product" color="primary" mat-button>Create</button>
+</div>

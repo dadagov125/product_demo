@@ -30,7 +30,6 @@ public class WebConfig {
         cors.addAllowedMethod(CorsConfiguration.ALL);
         cors.addAllowedHeader(CorsConfiguration.ALL);
         cors.addAllowedOriginPattern(CorsConfiguration.ALL);
-        cors.addExposedHeader("Authorization,Link,X-Total-Count");
         cors.setAllowCredentials(true);
         cors.setMaxAge(1800L);
         source.registerCorsConfiguration("/api/**", cors);

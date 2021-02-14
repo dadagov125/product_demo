@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {CreateProductModel, ProductModel} from "../models/product.model";
 import {Observable} from "rxjs";
 import {SERVER_API_URL} from "../../constants";
-import {Pagenable} from "../../interfaces/pagenable";
+import {Pagenable} from "../../common/interfaces/pagenable";
 
 @Injectable({
   providedIn: 'root'

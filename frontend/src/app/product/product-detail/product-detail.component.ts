@@ -18,10 +18,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.product = this.activatedRoute.params.pipe(mergeMap(value => {
-      let code = value.code;
-      return this.productService.findByCode(code);
-    }));
+    this.product = this.activatedRoute.params.pipe(
+      mergeMap(value => this.productService.findByCode(value.code))
+    );
   }
 
 }

@@ -1,14 +1,11 @@
 package com.example.demo.domain.entity;
 
-
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class Product {
-
-
     @Id
     private Integer id;
 

@@ -20,9 +20,7 @@ export class ProductEditFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.form.form.statusChanges.subscribe(value => {
-      this.validationStatusChanged.emit(value === 'VALID');
-    });
+    this.form.form.statusChanges.subscribe(value => this.validationStatusChanged.emit(value === 'VALID'));
     this.form.form.updateValueAndValidity();
   }
 

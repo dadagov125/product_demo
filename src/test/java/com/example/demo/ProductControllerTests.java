@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -214,19 +215,19 @@ class ProductControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(content().string(mapper.writeValueAsString(
-                        new PageImpl(Collections.EMPTY_LIST, PageRequest.ofSize(20), 0)
+                        Page.empty(PageRequest.ofSize(20))
                 )));
     }
 
     @Test
     public void getAllTest() throws Exception {
         spawnProduct();
+
         productRestMvcMock.perform(get(api))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(content().string(mapper.writeValueAsString(
-                        new PageImpl(Collections.singletonList(productDTO), PageRequest.ofSize(20), 0)
-
+                        new PageImpl<>(Collections.singletonList(productDTO), PageRequest.ofSize(20), 0)
                 )));
     }
 

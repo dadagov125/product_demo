@@ -24,7 +24,6 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatButtonModule,
     MatDatepickerModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

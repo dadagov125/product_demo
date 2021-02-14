@@ -15,6 +15,8 @@ public interface ProductService {
 
     Optional<ProductDTO> findOneById(Integer id);
 
+    Optional<ProductDTO> findOneByCode(String code);
+
     Page<ProductDTO> findAll(Pageable pageable);
 
     void delete(Integer id);

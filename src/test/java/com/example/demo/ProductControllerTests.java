@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -191,11 +193,29 @@ class ProductControllerTests {
     }
 
     @Test
+    public void getOneByCodeNotFoundTest() throws Exception {
+        productRestMvcMock.perform(get(api + "/code/12312312312"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void getOneByCodeTest() throws Exception {
+        spawnProduct();
+        productRestMvcMock.perform(get(api + "/code/" + productDTO.getCode()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(content().string(mapper.writeValueAsString(productDTO)));
+    }
+
+    @Test
     public void getAllIsEmptyTest() throws Exception {
+
         productRestMvcMock.perform(get(api))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(content().string(mapper.writeValueAsString(Collections.EMPTY_LIST)));
+                .andExpect(content().string(mapper.writeValueAsString(
+                        new PageImpl(Collections.EMPTY_LIST, PageRequest.ofSize(20), 0)
+                )));
     }
 
     @Test
@@ -204,7 +224,10 @@ class ProductControllerTests {
         productRestMvcMock.perform(get(api))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(content().string(mapper.writeValueAsString(Collections.singletonList(productDTO))));
+                .andExpect(content().string(mapper.writeValueAsString(
+                        new PageImpl(Collections.singletonList(productDTO), PageRequest.ofSize(20), 0)
+
+                )));
     }
 
 

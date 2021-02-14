@@ -41,6 +41,11 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).map(productMapper::toDto);
     }
 
+    @Override
+    public Optional<ProductDTO> findOneByCode(String code) {
+        return productRepository.findByCode(code).map(productMapper::toDto);
+    }
+
 
     @Override
     public Page<ProductDTO> findAll(Pageable pageable) {

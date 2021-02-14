@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,14 +24,20 @@ public class ProductContaroller {
 
 
     @GetMapping()
-    public ResponseEntity<List<ProductDTO>> getProducts(Pageable pageable) {
+    public ResponseEntity<Page<ProductDTO>> getProducts(Pageable pageable) {
         Page<ProductDTO> page = productService.findAll(pageable);
-        return ResponseEntity.ok(page.getContent());
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable("id") Integer id) {
         Optional<ProductDTO> productOptional = productService.findOneById(id);
+        return ResponseEntity.of(productOptional);
+    }
+
+    @GetMapping("/code/{code}")
+    public ResponseEntity<ProductDTO> getProductByCode(@PathVariable("code") String code) {
+        Optional<ProductDTO> productOptional = productService.findOneByCode(code);
         return ResponseEntity.of(productOptional);
     }
 
